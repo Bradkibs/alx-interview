@@ -1,6 +1,6 @@
 # Implementation of Pascal's triangle in python
 
-> > In mathematics, Pascal's triangle is a triangular array of the binomial coefficients that arises in probability theory, combinatorics, and algebra.
+> > In mathematics, [Pascal's triangle](https://www.mathsisfun.com/pascals-triangle.html) is a triangular array of the binomial coefficients that arises in probability theory, combinatorics, and algebra.
 
 ## Required to:
 
