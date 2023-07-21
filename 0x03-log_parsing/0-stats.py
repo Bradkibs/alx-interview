@@ -19,6 +19,7 @@ file_size = 0
 
 
 def keyboard_interrupt_handler(signal, frame):
+    """A keyboard interrupt handler to handle ctrl + c"""
     print_stats()
     sys.exit(0)
 
@@ -27,6 +28,7 @@ signal.signal(signal.SIGINT, keyboard_interrupt_handler)
 
 
 def print_stats():
+    """Prints all the statuses when needed"""
     output = Counter(status)
     print(f'File size: {file_size}')
     for stat, count in output.items():
