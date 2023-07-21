@@ -31,7 +31,7 @@ def print_stats():
     """Prints all the statuses when needed"""
     output = Counter(status)
     print(f'File size: {file_size}')
-    for stat, count in output.items():
+    for stat, count in sorted(output.items()):
         print(f"{stat}: {count}")
 
 
