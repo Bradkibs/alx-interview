@@ -1,59 +1,42 @@
 #!/usr/bin/python3
-
-""" a log parsing script to get status code and number of
-occurences when given input of the following format
-<IP Address> - [<date>] "GET /projects/260 HTTP/1.1"
-<status code> <file size>"""
-
+"""Python script that reads stdin line by line and computes metrics"""
 
 import sys
-from collections import Counter
-import re
-import signal
 
+
+def print_n(t_file_size, status):
+    """Prints total file size and status list"""
+    print("File size: {:d}".format(t_file_size))
+    for key, value in sorted(status.items()):
+        if value != 0:
+            print("{}: {}".format(key, value))
+
+
+status = {'200': 0, '301': 0, '400': 0, '401': 0,
+          '403': 0, '404': 0, '405': 0, '500': 0}
+
+t_file_size = 0
 count = 0
-pattern = r'\b(?:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\b - \[(.*?)\] ' \
-          r'"GET \/projects\/260 HTTP\/1\.1" \d+ \d+'
-file_size = 0
+try:
+    for line in sys.stdin:
+        args = line.split()
 
+        if len(args) > 2:
+            status_code = args[-2]
+            file_size = int(args[-1])
 
-def keyboard_interrupt_handler(signal, frame):
-    """A keyboard interrupt handler to handle ctrl + c"""
-    print_stats()
-    sys.exit(0)
+            if status_code in status:
+                status[status_code] += 1
 
-
-signal.signal(signal.SIGINT, keyboard_interrupt_handler)
-
-
-def print_stats():
-    """Prints all the statuses when needed"""
-    if file_size > 0:
-        print(f'File size: {file_size}')
-    for stat, count in sorted(statuses.items()):
-        if count > 0:
-            print(f'{stat}: {count}')
-
-
-statuses = {
-        '200': 0,
-        '301': 0, '400': 0, '401': 0, '403': 0, '404': 0, '405': 0, '500': 0}
-
-
-for line in sys.stdin:
-    match = re.search(pattern, line.strip())
-    if match:
-        try:
+            t_file_size += file_size
             count += 1
-            log = line.split()
-            if log[7] in statuses:
-                statuses[log[7]] += 1
-                file_size += int(log[8])
+
             if count == 10:
-                print_stats()
+                print_n(t_file_size, status)
                 count = 0
-        except KeyboardInterrupt:
-            print_stats()
-            sys.exit(0)
-        except TypeError:
-            continue
+
+except KeyboardInterrupt:
+    pass
+
+finally:
+    print_n(t_file_size, status)
