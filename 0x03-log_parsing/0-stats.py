@@ -28,7 +28,8 @@ signal.signal(signal.SIGINT, keyboard_interrupt_handler)
 
 def print_stats():
     """Prints all the statuses when needed"""
-    print(f'File size: {file_size}')
+    if file_size > 0:
+        print(f'File size: {file_size}')
     for stat, count in sorted(statuses.items()):
         if count > 0:
             print(f'{stat}: {count}')
@@ -47,7 +48,7 @@ for line in sys.stdin:
             log = line.split()
             if log[7] in statuses:
                 statuses[log[7]] += 1
-            file_size += int(log[8])
+                file_size += int(log[8])
             if count == 10:
                 print_stats()
                 count = 0
