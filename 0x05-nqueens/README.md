@@ -2,6 +2,7 @@
 ## Resources used
 * [What is a Queen piece in Chess](https://en.wikipedia.org/wiki/Queen_%28chess%29)
 * [Backtracking algorithm](https://en.wikipedia.org/wiki/Backtracking)
+* [Backtracking algorithms video](https://www.youtube.com/watch?v=Cc4mqUNig-c&t=13s)
 ## Problem statement
 The N queens puzzle is the challenge of placing N non-attacking queens on an N×N chessboard. Write a program that solves the N queens problem.
 
