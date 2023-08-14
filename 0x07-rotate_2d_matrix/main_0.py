@@ -9,7 +9,10 @@ if __name__ == "__main__":
               [5, 6, 7, 8],
               [9, 10, 11, 12],
               [13, 14, 15, 16]]
-
+    print("\tBefore rotation matrix\t", end="\n")
+    for item in matrix:
+        print(item, end="\n")
     rotate_2d_matrix(matrix)
+    print("\tAfter rotation matrix\t", end="\n")
     for i in matrix:
         print(i, end="\n")

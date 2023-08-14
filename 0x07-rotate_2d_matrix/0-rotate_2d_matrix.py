@@ -4,4 +4,4 @@
 
 def rotate_2d_matrix(matrix):
     """An inplace 90 deg rotation of an N X N matrix"""
-    matrix[:] = list(zip(*matrix[::-1]))
+    matrix[:] = [list(row) for row in zip(*matrix[::-1])]
