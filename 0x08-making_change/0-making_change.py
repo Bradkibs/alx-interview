@@ -1,8 +1,9 @@
 #!/usr/bin/python3
-""" An implementation of finding the fewest number of change for a given amount"""
-
+""" An implementation of finding the fewest number of change
+for a given amount"""
 
 from collections import deque
+
 
 def makeChange(coins, total):
     """given coins as a list and total as a number
@@ -26,4 +27,3 @@ def makeChange(coins, total):
                 return -1
             break
     return count
-
