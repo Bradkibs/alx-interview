@@ -14,16 +14,32 @@ def isWinner(x, nums):
             if n % i == 0:
                 return False
         return True
+
     for item in nums:
-        primes = [i for i in range(2, item + 1) if isPrime(i)]
-        if len(primes) % 2 == 0:
+        available_numbers = list(range(2, item + 1))
+
+        maria_turn = True
+
+        while available_numbers:
+            valid_choices = [num for num in available_numbers if isPrime(num)]
+            if not valid_choices:
+                break
+
+            chosen_prime = max(valid_choices)
+
+            available_numbers = [num for num in available_numbers
+                                 if num % chosen_prime != 0]
+
+            maria_turn = not maria_turn
+
+        if maria_turn:
             score["Ben"] += 1
         else:
             score["Maria"] += 1
 
-    if (score["Maria"] < score["Ben"]):
-        return("Ben")
-    elif (score["Maria"] == score["Ben"]):
+    if score["Maria"] < score["Ben"]:
+        return "Ben"
+    elif score["Maria"] == score["Ben"]:
         return None
     else:
-        return("Maria")
+        return "Maria"
