@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 """Algorithm for the prime game"""
 
-import math
-
 
 def isWinner(x, nums):
     """Determines between maria and Ben who wins the game"""
@@ -12,7 +10,7 @@ def isWinner(x, nums):
         """Does a prime check on a given number"""
         if n < 2:
             return False
-        for i in range(2, int(math.sqrt(n)) + 1):
+        for i in range(2, int(n**0.5) + 1):
             if n % i == 0:
                 return False
         return True
