@@ -1,45 +1,44 @@
 #!/usr/bin/python3
-"""Algorithm for the prime game"""
+"""
+Define isWineer function, a solution to the Prime Game problem
+"""
+
+
+def primes(n):
+    """Return list of prime numbers between 1 and n inclusive
+        Args:
+        n (int): upper boundary of range. lower boundary is always 1
+    """
+    prime = []
+    sieve = [True] * (n + 1)
+    for p in range(2, n + 1):
+        if (sieve[p]):
+            prime.append(p)
+            for i in range(p, n + 1, p):
+                sieve[i] = False
+    return prime
 
 
 def isWinner(x, nums):
-    """Determines between maria and Ben who wins the game"""
-    score = {"Maria": 0, "Ben": 0}
-
-    def isPrime(n):
-        """Does a prime check on a given number"""
-        if n < 2:
-            return False
-        for i in range(2, int(n**0.5) + 1):
-            if n % i == 0:
-                return False
-        return True
-
-    for item in nums:
-        available_numbers = list(range(2, item + 1))
-
-        maria_turn = True
-
-        while available_numbers:
-            valid_choices = [num for num in available_numbers if isPrime(num)]
-            if not valid_choices:
-                break
-
-            chosen_prime = max(valid_choices)
-
-            available_numbers = [num for num in available_numbers
-                                 if num % chosen_prime != 0]
-
-            maria_turn = not maria_turn
-
-        if maria_turn:
-            score["Ben"] += 1
-        else:
-            score["Maria"] += 1
-
-    if score["Maria"] < score["Ben"]:
-        return "Ben"
-    elif score["Maria"] == score["Ben"]:
+    """
+    Determines winner of Prime Game
+    Args:
+        x (int): no. of rounds of game
+        nums (int): upper limit of range for each round
+    Return:
+        Name of winner (Maria or Ben) or None if winner cannot be found
+    """
+    if x is None or nums is None or x == 0 or nums == []:
         return None
-    else:
-        return "Maria"
+    Maria = Ben = 0
+    for i in range(x):
+        prime = primes(nums[i])
+        if len(prime) % 2 == 0:
+            Ben += 1
+        else:
+            Maria += 1
+    if Maria > Ben:
+        return 'Maria'
+    elif Ben > Maria:
+        return 'Ben'
+    return None
